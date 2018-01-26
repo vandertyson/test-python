@@ -228,14 +228,15 @@ def prep_image_mask(is_valtrain=True):
 def view_csv():
     df = pd.read_csv("/BuildingDetectors_Round2/1-XD_XD/code/v9s.csv")
     image_mask_resized_from_summary(df)
-    
+
 
 
 ##############################################        
 #run everything
 ##############################################        
-calc_rgb_multiband_cut_threshold()
-calc_mul_multiband_cut_threshold()
-prep_image_mask()
+# calc_rgb_multiband_cut_threshold()
+# calc_mul_multiband_cut_threshold()
+# prep_image_mask()
 
+view_csv()
 
