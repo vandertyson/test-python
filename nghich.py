@@ -194,10 +194,10 @@ def image_mask_resized_from_summary(df):
                 im_mask[yy, xx] = 0
     im_mask = skimage.transform.resize(im_mask, (INPUT_SIZE, INPUT_SIZE))
     im_mask = (im_mask > 0.5).astype(np.uint8)  
-    # print(im_mask.shape)
-    # pyplot.imshow(im_mask)
-    # pyplot.show()
-    logger.info(np.count_nonzero(im_mask))
+    print(im_mask.shape)
+    pyplot.imshow(im_mask)
+    pyplot.show()
+    # logger.info(np.count_nonzero(im_mask))
     return im_mask
 
 
@@ -225,7 +225,10 @@ def prep_image_mask(is_valtrain=True):
 ##############################################        
 #
 ##############################################        
-
+def view_csv():
+    df = pd.read_csv("/BuildingDetectors_Round2/1-XD_XD/code/v9s.csv")
+    image_mask_resized_from_summary(df)
+    
 
 
 ##############################################        
@@ -234,3 +237,5 @@ def prep_image_mask(is_valtrain=True):
 calc_rgb_multiband_cut_threshold()
 calc_mul_multiband_cut_threshold()
 prep_image_mask()
+
+

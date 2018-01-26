@@ -22,7 +22,7 @@ import skimage.transform
 import rasterio.features
 
 
-MODEL_NAME = 'v17'
+MODEL_NAME = 'v9s'
 ORIGINAL_SIZE = 650
 INPUT_SIZE = 256
 STRIDE_SZ = 197
