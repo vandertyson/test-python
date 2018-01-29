@@ -12,7 +12,7 @@ import tables as tb
 import rasterio.features
 import skimage.transform
 
-FN_WEIGHTS = "/data/models/working/v9s/AOI_3_Paris_val_weights_last.h5"
+FN_WEIGHTS = "/data/working/models/v9s/AOI_3_Paris_val_weights_last.h5"
 FN_IM = "/data/test/AOI_3_Paris_Test/RGB-PanSharpen/RGB-PanSharpen_AOI_3_Paris_img522.tif"
 
 
