@@ -12,7 +12,7 @@ import tables as tb
 
 
 FN_WEIGHTS = "/data/models/working/v9s/AOI_3_Paris_val_weights_last.h5"
-FN_IM  = "/data/test/AOI_3_Paris/RGB-PanSharpen/RGB-PanSharpen_AOI_3_Paris_img522.tif"
+FN_IM  = "/data/test/AOI_3_Paris_Test/RGB-PanSharpen/RGB-PanSharpen_AOI_3_Paris_img522.tif"
 
 def get_unet():
     conv_params = dict(activation='relu', border_mode='same')
