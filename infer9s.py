@@ -9,10 +9,12 @@ from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint, EarlyStopping, History
 from keras import backend as K
 import tables as tb
+import rasterio.features
 
 
 FN_WEIGHTS = "/data/models/working/v9s/AOI_3_Paris_val_weights_last.h5"
-FN_IM  = "/data/test/AOI_3_Paris_Test/RGB-PanSharpen/RGB-PanSharpen_AOI_3_Paris_img522.tif"
+FN_IM = "/data/test/AOI_3_Paris_Test/RGB-PanSharpen/RGB-PanSharpen_AOI_3_Paris_img522.tif"
+
 
 def get_unet():
     conv_params = dict(activation='relu', border_mode='same')
@@ -79,18 +81,45 @@ def jaccard_coef_int(y_true, y_pred):
     jac = (intersection + smooth) / (sum_ - intersection + smooth)
     return K.mean(jac)
 
-def infer():    
+
+def infer():
     # model = get_unet()
     # model.load_weights(FN_WEIGHTS)
-    with tb.open_file(FN_IM, 'r') as f:
-            print(f)
+    bandstats =
+        {
+            0: {
+                'max': 462.0,
+                'min': 126.0,
+            },
+            1: {
+                'max': 481.0,
+                'min': 223.0,
+            },
+            2: {
+                'max': 369.0,
+                'min': 224.0,
+            },
+        }
+    with rasterio.open(FN_IM, 'r') as f:
+        values = f.read().astype(np.float32)
+        for chan_i in range(3):
+            min_val = bandstats[chan_i]['min']
+            max_val = bandstats[chan_i]['max']
+            values[chan_i] = np.clip(values[chan_i], min_val, max_val)
+            values[chan_i] = (values[chan_i] - min_val) / (max_val - min_val)
+
+    values = np.swapaxes(values, 0, 2)
+    values = np.swapaxes(values, 0, 1)
+    values = skimage.transform.resize(values, (256, 256))
+    print values
     #         slice_pos = 5
     #         slice_id = image_id + '_' + str(slice_pos)
     #         im = np.array(f.get_node('/' + slice_id))
     #         im = np.swapaxes(im, 0, 2)
     #         im = np.swapaxes(im, 1, 2)
     #         X_train.append(im)
-    # X_test = 
+    # X_test =
     # y_pred = model.predict(X_test, batch_size=1, verbose=1)
 
-infer()    
+
+infer()
