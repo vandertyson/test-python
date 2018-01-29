@@ -83,8 +83,8 @@ def jaccard_coef_int(y_true, y_pred):
 
 
 def infer():
-    # model = get_unet()
-    # model.load_weights(FN_WEIGHTS)
+    model = get_unet()
+    model.load_weights(FN_WEIGHTS)
     bandstats = {0: {'max': 462.0,'min': 126.0},1: {'max': 481.0,'min': 223.0},2: {'max': 369.0,'min': 224.0}}
     with rasterio.open(FN_IM, 'r') as f:
         values = f.read().astype(np.float32)
@@ -97,15 +97,7 @@ def infer():
     values = np.swapaxes(values, 0, 2)
     values = np.swapaxes(values, 0, 1)
     values = skimage.transform.resize(values, (256, 256))
-    print values
-    #         slice_pos = 5
-    #         slice_id = image_id + '_' + str(slice_pos)
-    #         im = np.array(f.get_node('/' + slice_id))
-    #         im = np.swapaxes(im, 0, 2)
-    #         im = np.swapaxes(im, 1, 2)
-    #         X_train.append(im)
-    # X_test =
-    # y_pred = model.predict(X_test, batch_size=1, verbose=1)
-
+    y_pred = model.predict(values, batch_size=1, verbose=1)
+    print y_pred
 
 infer()
