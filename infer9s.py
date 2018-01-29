@@ -10,7 +10,7 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping, History
 from keras import backend as K
 import tables as tb
 import rasterio.features
-
+import skimage.transform
 
 FN_WEIGHTS = "/data/models/working/v9s/AOI_3_Paris_val_weights_last.h5"
 FN_IM = "/data/test/AOI_3_Paris_Test/RGB-PanSharpen/RGB-PanSharpen_AOI_3_Paris_img522.tif"
@@ -85,21 +85,7 @@ def jaccard_coef_int(y_true, y_pred):
 def infer():
     # model = get_unet()
     # model.load_weights(FN_WEIGHTS)
-    bandstats =
-        {
-            0: {
-                'max': 462.0,
-                'min': 126.0,
-            },
-            1: {
-                'max': 481.0,
-                'min': 223.0,
-            },
-            2: {
-                'max': 369.0,
-                'min': 224.0,
-            },
-        }
+    bandstats = {0: {'max': 462.0,'min': 126.0},1: {'max': 481.0,'min': 223.0},2: {'max': 369.0,'min': 224.0}}
     with rasterio.open(FN_IM, 'r') as f:
         values = f.read().astype(np.float32)
         for chan_i in range(3):
