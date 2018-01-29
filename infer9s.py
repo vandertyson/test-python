@@ -96,8 +96,8 @@ def infer():
 
     values = np.swapaxes(values, 0, 2)
     values = np.swapaxes(values, 0, 1)
-    values = skimage.transform.resize(values, (256, 256))
-    values = np.expand_dims(values, axis=0))
+    values = skimage.transform.resize(values, (None, 256, 256))
+    # values = np.expand_dims(values, axis=0)
     y_pred = model.predict(values, verbose=1)
     print(y_pred)
 
