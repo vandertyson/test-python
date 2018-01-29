@@ -80,8 +80,8 @@ def jaccard_coef_int(y_true, y_pred):
     return K.mean(jac)
 
 def infer():    
-    model = get_unet()
-    model.load_weights(FN_WEIGHTS)
+    # model = get_unet()
+    # model.load_weights(FN_WEIGHTS)
     with tb.open_file(FN_IM, 'r') as f:
             print(f)
     #         slice_pos = 5
